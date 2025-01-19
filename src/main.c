@@ -28,22 +28,28 @@ static const struct device *gpio_dev = DEVICE_DT_GET(DT_NODELABEL(gpio0));
 static const struct gpio_dt_spec button = GPIO_DT_SPEC_GET(SW3_NODE, gpios);
 static struct gpio_callback button_cb_data;
 
-static volatile bool phase = 0;
+int phase = 0;
 
 void button_pressed(const struct device *dev, struct gpio_callback *cb, uint32_t pins)
 {
-    phase = !phase; // Toggle phase
-
-    if(phase){
+    phase += 1 ;
+    if(phase>2){
+        phase = 0 ;
+    }
+    if(phase = 1){
         pwm_set_dt(&motorA, PWM_PERIOD_NS, PWM_PLUSE);
 		pwm_set_dt(&motorB, PWM_PERIOD_NS, 0);
         printk("motorA on\n");
 
-    } else {
+    } else if(phase = 2){
         pwm_set_dt(&motorB, PWM_PERIOD_NS, PWM_PLUSE);
         pwm_set_dt(&motorA, PWM_PERIOD_NS, 0);
         printk("motorB on\n");
-    }
+    } else if (phase = 0){
+        pwm_set_dt(&motorA, PWM_PERIOD_NS, 0);
+		pwm_set_dt(&motorB, PWM_PERIOD_NS, 0);
+        printk("all motor off\n");
+    } 
 
 }
 
