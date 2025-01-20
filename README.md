@@ -1,11 +1,11 @@
 ## Introduction
-tb6612fng is controled by the PWM & GPIO in this project.  
+tb6612fng is a two channel motor module controled by the PWM & GPIO in this project.  
 The motor's RPM can be modified by `PWM_DUTY_CYCLE` = `PWM_PLUSE/PWM_PERIOD`.  
 
 
 ### control logic
 
-controled by single button, when pressed `phase` changes between 0~2
+controled by single button, when pressed `phase` changes between 0~2 to modify the output of A&B channels
 
 `phase0` : channelA & channelB off
 
