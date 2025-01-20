@@ -13,7 +13,7 @@
 #define SLEEP_TIME_MS   100
 #define PWM_frequency   100000
 #define PWM_PERIOD_NS   10000000
-#define PWM_DUTY_CYCLE   90
+#define PWM_DUTY_CYCLE   PWM_PULSE/PWM_PERIOD_NS
 #define PWM_PULSE    9000000
 
 #define PWM_MOTOR_A    DT_ALIAS(motor0)
@@ -36,16 +36,16 @@ void button_pressed(const struct device *dev, struct gpio_callback *cb, uint32_t
     if(phase>2){
         phase = 0 ;
     }
-    if(phase = 1){
-        pwm_set_dt(&motorA, PWM_PERIOD_NS, PWM_PLUSE);
+    if(phase == 1){
+        pwm_set_dt(&motorA, PWM_PERIOD_NS, PWM_PULSE);
 		pwm_set_dt(&motorB, PWM_PERIOD_NS, 0);
         printk("motorA on\n");
 
-    } else if(phase = 2){
-        pwm_set_dt(&motorB, PWM_PERIOD_NS, PWM_PLUSE);
+    } else if(phase == 2){
+        pwm_set_dt(&motorB, PWM_PERIOD_NS, PWM_PULSE);
         pwm_set_dt(&motorA, PWM_PERIOD_NS, 0);
         printk("motorB on\n");
-    } else if (phase = 0){
+    } else if (phase == 0){
         pwm_set_dt(&motorA, PWM_PERIOD_NS, 0);
 		pwm_set_dt(&motorB, PWM_PERIOD_NS, 0);
         printk("all motor off\n");
